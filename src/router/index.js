@@ -10,9 +10,16 @@ Vue.use(VueRouter)
 // 实现了效果: 只有用到了该组件, 才会加载该组件
 const Login = () => import(/* webpackChunkName: 'login' */'@/views/login/Login')
 const Index = () => import(/* webpackChunkName: 'index' */'@/views/layout/Index.vue')
+const Error = () => import(/* webpackChunkName: 'index' */'@/views/layout/Error.vue')
 const Test1 = () => import(/* webpackChunkName: 'index' */'@/views/qualityControl/Test1.vue')
 const Test2 = () => import(/* webpackChunkName: 'index' */'@/views/qualityControl/Test2.vue')
 const Test3 = () => import(/* webpackChunkName: 'index' */'@/views/qualityControl/Test3.vue')
+const Userwork = () => import(/* webpackChunkName: 'index' */'@/views/asideIndex/Userwork')
+const Inform = () => import(/* webpackChunkName: 'index' */'@/views/asideIndex/Inform')
+const Complaint = () => import(/* webpackChunkName: 'index' */'@/views/asideIndex/Complaint')
+const Work = () => import(/* webpackChunkName: 'index' */'@/views/asideIndex/Work')
+const Calendar = () => import(/* webpackChunkName: 'index' */'@/views/asideIndex/Calendar')
+const Todolist = () => import(/* webpackChunkName: 'index' */'@/views/asideIndex/Todolist')
 // const Indexx = () => import(/* webpackChunkName: 'indexx' */'../main')
 
 const originalPush = VueRouter.prototype.push
@@ -22,22 +29,30 @@ VueRouter.prototype.push = function push (location) {
 const routes = [
   {
     path: '/',
-    redirect: '/index'
+    redirect: '/userwork'
   },
   {
     path: '/login',
     name: 'login',
     component: Login
   },
+  { path: '*', name: '404', component: Error },
   {
-    path: '/index',
-    name: 'index',
+    path: '/userwork',
+    name: '个人工作',
     component: Index,
     children: [
       // 通过 /users 就可以匹配子路由了
       { path: '/Test1', name: '测试1', component: Test1 },
       { path: '/Test2', name: '测试2', component: Test2 },
-      { path: '/Test3', name: '测试3', component: Test3 }
+      { path: '/Test3', name: '测试3', component: Test3 },
+      { path: '/userwork', name: '个人工作', component: Userwork },
+      { path: '/inform', name: '通知', component: Inform },
+      { path: '/work', name: '工作', component: Work },
+      { path: '/calendar', name: '日历', component: Calendar },
+      { path: '/todolist', name: '待办', component: Todolist },
+      { path: '/complaint', name: '投诉', component: Complaint }
+
       // { path: '/rights', name: 'rights', component: Rights },
       // { path: '/categories', name: 'categories', component: Categories },
       // { path: '/goods', name: 'goods', component: Goods },
